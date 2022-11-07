@@ -1,0 +1,7 @@
+{
+"url-backend": "127.0.0.1",
+"port": 9999,
+
+ "data-db-connection": "mongodb+srv://Usu-Prueba:relenm71@cluster0.da5ostw.mongodb.net/?retryWrites=true&w=majority" ,
+  "name-db": "bd-Registraduria"
+}
