@@ -18,7 +18,9 @@ print(baseDatos.list_collection_names())
 app=Flask(__name__)
 cors = CORS(app)
 from Controladores.ControladorCandidatos import ControladorCandidatos
+from Controladores.ControladorPartidos import ControladorPartidos
 miControladorCandidato=ControladorCandidatos()
+miControladorPartido=ControladorPartidos()
 
 @app.route("/",methods=['GET'])
 def test():
@@ -44,6 +46,27 @@ def modificarCandidatos(id):
 @app.route("/Candidatos/<string:id>",methods=['DELETE'])
 def eliminarCandidatos(id):
     json=miControladorCandidato.delete(id)
+    return jsonify(json)
+
+
+@app.route("/Partidos",methods=['GET'])
+def getPartidos():
+    json=miControladorPartido.index()
+    return jsonify(json)
+@app.route("/Partidos",methods=['POST'])
+def crearPartidos():
+    data = request.get_json()
+    json=miControladorPartido.create(data)
+    return jsonify(json)
+@app.route("/Partidos/<string:id>",methods=['PUT'])
+def modificarPartidos(id):
+    data = request.get_json()
+    json=miControladorPartido.update(id,data)
+    return jsonify(json)
+
+@app.route("/Partidos/<string:id>",methods=['DELETE'])
+def eliminarCPartidos(id):
+    json=miControladorPartido.delete(id)
     return jsonify(json)
 
 def loadFileConfig():
