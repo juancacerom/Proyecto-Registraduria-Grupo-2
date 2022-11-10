@@ -19,8 +19,12 @@ app=Flask(__name__)
 cors = CORS(app)
 from Controladores.ControladorCandidatos import ControladorCandidatos
 from Controladores.ControladorPartidos import ControladorPartidos
+from Controladores.ControladorMesaVotacion import ControladorMesa
+from Controladores.ControladorRegistroVotos import ControladorRegistro
 miControladorCandidato=ControladorCandidatos()
 miControladorPartido=ControladorPartidos()
+miControladorMesaVotacion=ControladorMesa()
+miControladorRegistro=ControladorRegistro()
 
 @app.route("/",methods=['GET'])
 def test():
@@ -65,8 +69,48 @@ def modificarPartidos(id):
     return jsonify(json)
 
 @app.route("/Partidos/<string:id>",methods=['DELETE'])
-def eliminarCPartidos(id):
+def eliminarPartidos(id):
     json=miControladorPartido.delete(id)
+    return jsonify(json)
+
+@app.route("/mesaVotacion",methods=['GET'])
+def getMesas():
+    json=miControladorMesaVotacion.index()
+    return jsonify(json)
+@app.route("/mesaVotacion",methods=['POST'])
+def crearMesasVotacion():
+    data = request.get_json()
+    json=miControladorMesaVotacion.create(data)
+    return jsonify(json)
+@app.route("/mesaVotacion/<string:id>",methods=['PUT'])
+def modificarMesas(id):
+    data = request.get_json()
+    json=miControladorMesaVotacion.update(id,data)
+    return jsonify(json)
+
+@app.route("/mesaVotacion/<string:id>",methods=['DELETE'])
+def eliminarMesas(id):
+    json=miControladorMesaVotacion.delete(id)
+    return jsonify(json)
+
+@app.route("/registroVotos",methods=['GET'])
+def getRegistro():
+    json=miControladorRegistro.index()
+    return jsonify(json)
+@app.route("/registroVotos",methods=['POST'])
+def crearRegistro():
+    data = request.get_json()
+    json=miControladorRegistro.create(data)
+    return jsonify(json)
+@app.route("/registroVotos/<string:id>",methods=['PUT'])
+def modificarRegistro(id):
+    data = request.get_json()
+    json=miControladorRegistro.update(id,data)
+    return jsonify(json)
+
+@app.route("/registroVotos/<string:id>",methods=['DELETE'])
+def eliminarRegistro(id):
+    json=miControladorRegistro.delete(id)
     return jsonify(json)
 
 def loadFileConfig():
