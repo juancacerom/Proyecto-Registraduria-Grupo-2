@@ -20,11 +20,11 @@ cors = CORS(app)
 from Controladores.ControladorCandidatos import ControladorCandidatos
 from Controladores.ControladorPartidos import ControladorPartidos
 from Controladores.ControladorMesaVotacion import ControladorMesa
-from Controladores.ControladorRegistroVotos import ControladorRegistro
+from Controladores.ControladorRegistroVotos import ControladorRegistroVotos
 miControladorCandidato=ControladorCandidatos()
 miControladorPartido=ControladorPartidos()
 miControladorMesaVotacion=ControladorMesa()
-miControladorRegistro=ControladorRegistro()
+miControladorRegistro=ControladorRegistroVotos()
 
 @app.route("/",methods=['GET'])
 def test():
@@ -97,20 +97,23 @@ def eliminarMesas(id):
 def getRegistro():
     json=miControladorRegistro.index()
     return jsonify(json)
-@app.route("/registroVotos",methods=['POST'])
-def crearRegistro():
-    data = request.get_json()
-    json=miControladorRegistro.create(data)
+@app.route("/registroVotos/<string:id>",methods=['GET'])
+def getRegistroid(id):
+    json=miControladorRegistro.show(id)
     return jsonify(json)
-@app.route("/registroVotos/<string:id>",methods=['PUT'])
-def modificarRegistro(id):
+@app.route("/registroVotos/Candidatos/<string:id_Cantidato>/Partidos/<string:id_Partido>/mesaVotacion/<string:id_Mesa>",methods=['POST'])
+def crearRegistro(id_Cantidato,id_Partido,id_Mesa):
     data = request.get_json()
-    json=miControladorRegistro.update(id,data)
+    json=miControladorRegistro.create(data,id_Cantidato,id_Partido,id_Mesa)
     return jsonify(json)
-
-@app.route("/registroVotos/<string:id>",methods=['DELETE'])
-def eliminarRegistro(id):
-    json=miControladorRegistro.delete(id)
+@app.route("/registroVotos/Candidatos/<string:id_Cantidato>/Partidos/<string:id_Partido>/mesaVotacion/<string:id_Mesa>",methods=['PUT'])
+def modificarRegistro(id_Registro,id_Cantidato,id_Partido,id_Mesa):
+    data = request.get_json()
+    json=miControladorRegistro.update(id_Registro,data,id_Cantidato,id_Partido,id_Mesa)
+    return jsonify(json)
+@app.route("/registroVotos/<string:id_Registro>",methods=['DELETE'])
+def eliminarRegistro(id_Registro):
+    json=miControladorRegistro.delete(id_Registro)
     return jsonify(json)
 
 def loadFileConfig():

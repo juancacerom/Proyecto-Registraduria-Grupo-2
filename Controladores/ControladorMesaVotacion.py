@@ -13,7 +13,8 @@ class ControladorMesa():
         return laMesaVotacion.__dict__
     def update(self,id,infoMesaVotacion):
         MesaActual=MesaVotacion(self.repositorioMesaVotacion.findById(id))
-        MesaActual.Cedula=infoMesaVotacion["CedulaInscrita"]
+        MesaActual.cedula=infoMesaVotacion["cedula"]
+        MesaActual.mesa = infoMesaVotacion["mesa"]
         return self.repositorioMesaVotacion.save(MesaActual)
     def delete(self,id):
         return self.repositorioMesaVotacion.delete(id)
