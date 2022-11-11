@@ -17,7 +17,7 @@ class ControladorRegistroVotos():
         return self.repositorioRegistro.findAll()
     def create(self,infoRegistro,id_Cantidato,id_Partido, id_Mesa):
         nuevoRegistro=RegistroVotos(infoRegistro)
-        nuevoRegistro.año = infoRegistro["numero Registro"]
+        nuevoRegistro.numeroRegistro = infoRegistro["numeroRegistro"]
         elCandidato= Candidatos(self.repositorioCandidatos.findById(id_Cantidato))
         elPartido=Partidos(self.repositorioPartidos.findById(id_Partido))
         laMesa = MesaVotacion(self.repositorioMesa.findById(id_Mesa))
