@@ -29,14 +29,12 @@ class ControladorRegistroVotos():
         Registro=RegistroVotos(self.repositorioRegistro.findById(id))
         return Registro.__dict__
 
-    def update(self,id,id_Cantidato,id_Partido, id_Mesa):
+    def update(self,id,id_Cantidato,id_Partido):
         elRegistro=RegistroVotos(self.repositorioRegistro.findById(id))
         elCandidato = Candidatos(self.repositorioCandidatos.findById(id_Cantidato))
         elPartido = Partidos(self.repositorioPartidos.findById(id_Partido))
-        laMesa = MesaVotacion(self.repositorioMesa.findById(id_Mesa))
         elRegistro.Candidatos = elCandidato
         elRegistro.Partidos = elPartido
-        elRegistro.MesaVotacion = laMesa
         return self.repositorioRegistro.save(elRegistro)
     def delete(self, id):
         return self.repositorioRegistro.delete(id)

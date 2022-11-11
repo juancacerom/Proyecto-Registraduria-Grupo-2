@@ -36,6 +36,10 @@ def test():
 def getCandidatos():
     json=miControladorCandidato.index()
     return jsonify(json)
+@app.route("/Candidatos/<string:id>", methods=["GET"])
+def get_Candidatos(id):
+    json = miControladorCandidato.show(id)
+    return jsonify(json)
 @app.route("/Candidatos",methods=['POST'])
 def crearCandidatos():
     data = request.get_json()
@@ -57,6 +61,11 @@ def eliminarCandidatos(id):
 def getPartidos():
     json=miControladorPartido.index()
     return jsonify(json)
+
+@app.route("/Partidos/<string:id>", methods=["GET"])
+def get_partido(id):
+    json = miControladorPartido.show(id)
+    return jsonify(json)
 @app.route("/Partidos",methods=['POST'])
 def crearPartidos():
     data = request.get_json()
@@ -76,6 +85,11 @@ def eliminarPartidos(id):
 @app.route("/mesaVotacion",methods=['GET'])
 def getMesas():
     json=miControladorMesaVotacion.index()
+    return jsonify(json)
+
+@app.route("/mesaVotacion/<string:id>", methods=["GET"])
+def get_mesa(id):
+    json = miControladorMesaVotacion.show(id)
     return jsonify(json)
 @app.route("/mesaVotacion",methods=['POST'])
 def crearMesasVotacion():
@@ -107,9 +121,9 @@ def crearRegistro(id_Cantidato,id_Partido,id_Mesa):
     json=miControladorRegistro.create(data,id_Cantidato,id_Partido,id_Mesa)
     return jsonify(json)
 @app.route("/registroVotos/Candidatos/<string:id_Cantidato>/Partidos/<string:id_Partido>/mesaVotacion/<string:id_Mesa>",methods=['PUT'])
-def modificarRegistro(id_Registro,id_Cantidato,id_Partido,id_Mesa):
+def modificarRegistro(id_Cantidato,id_Partido,id_Mesa):
     data = request.get_json()
-    json=miControladorRegistro.update(id_Registro,data,id_Cantidato,id_Partido,id_Mesa)
+    json=miControladorRegistro.update(data,id_Cantidato,id_Partido,id_Mesa)
     return jsonify(json)
 @app.route("/registroVotos/<string:id_Registro>",methods=['DELETE'])
 def eliminarRegistro(id_Registro):
