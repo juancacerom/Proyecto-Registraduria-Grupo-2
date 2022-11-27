@@ -13,7 +13,7 @@ db = client.test
 print(db)
 
 baseDatos = client["bd-Registraduria"]
-print(baseDatos.list_collection_names())
+
 
 app=Flask(__name__)
 cors = CORS(app)
