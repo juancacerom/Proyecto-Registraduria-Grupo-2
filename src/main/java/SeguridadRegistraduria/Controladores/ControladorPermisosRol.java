@@ -75,7 +75,7 @@ public class ControladorPermisosRol {
         this.permisoRolRepo.deleteById(id);
     }
 
-    @PostMapping("/validar-permiso/rol/{id_rol}")
+    @PostMapping("/validar-permiso/roles/{id_rol}")
     public PermisoRol getPermiso(@PathVariable String id_rol, @RequestBody Permisos infoPermiso,
                                  final HttpServletResponse response) throws IOException {
 
